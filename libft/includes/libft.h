@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:02:06 by tcali             #+#    #+#             */
-/*   Updated: 2025/04/12 19:01:41 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/12 12:02:25 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,11 @@
 
 typedef struct s_content
 {
-	int			nb;
-	int			index;
-	int			order;
+	int			range;
 }				t_content;
 
 typedef struct s_list
 {
-	char			stack;
 	t_content		content;
 	struct s_list	*prev;
 	struct s_list	*next;
