@@ -2,6 +2,7 @@ NAME = philo
 
 # Directories
 SRC_DIR = src
+DBG_DIR  = debug
 LIBFT_DIR = libft
 OBJ_DIR = obj
 INCLUDE_DIR = includes
@@ -9,12 +10,18 @@ INCLUDE_DIR = includes
 # Sources
 SRC := \
 	main.c \
+	parse_args.c \
+	create_philos.c \
+	threads.c \
 
+DBG := \
+	debug.c \
 #Path to sources
-VPATH = $(SRC_DIR) 
+VPATH = $(SRC_DIR) $(DBG_DIR)
 
 # Objects
 OBJ_FILES := $(addprefix $(OBJ_DIR)/$(SRC_DIR)/, $(SRC:.c=.o)) \
+	$(addprefix $(OBJ_DIR)/$(DBG_DIR)/, $(DBG:.c=.o))
 
 # Compilation
 CC := cc
@@ -47,7 +54,6 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	@make -C $(MLX_DIR) clean
 
 re: fclean all
 

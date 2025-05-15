@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:02:06 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/12 12:02:25 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/15 15:54:53 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,9 @@
 # include "../includes/ft_printf.h"
 # include "../includes/get_next_line.h"
 
-typedef struct s_content
-{
-	int			range;
-}				t_content;
-
 typedef struct s_list
 {
-	t_content		content;
+	void			*content;
 	struct s_list	*prev;
 	struct s_list	*next;
 }				t_list;
@@ -71,15 +66,14 @@ char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 /* ************************************************************************** */
 //Bonus Part
-t_list	*ft_lstnew(t_content content);
+t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstdelone(t_list *lst, void (*del)(t_content));
-void	ft_lstclear(t_list **lst, void (*del)(t_content));
-void	ft_lstiter(t_list *lst, t_content (*f)(t_content));
-t_list	*ft_lstmap(t_list *lst, t_content (*f)(t_content),
-			void (*del)(t_content));
+void	ft_lstdelone(t_list *lst, void (*del)(void *));
+void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstiter(t_list *lst, void *(*f)(void *));
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 #endif

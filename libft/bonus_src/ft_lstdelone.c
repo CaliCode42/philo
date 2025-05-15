@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:46:35 by tcali             #+#    #+#             */
-/*   Updated: 2025/03/25 23:36:58 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/15 15:51:22 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ the node. The memory of ’next’ must not be freed.
 #include <stdlib.h>
 #include "../includes/libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(t_content))
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
 	if (!del)
 		return ;
