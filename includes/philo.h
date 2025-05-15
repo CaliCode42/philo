@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:50:10 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/15 20:07:22 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/15 20:15:02 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	start_threads(t_data *data, t_philo *philo);
 void	join_threads(t_data *data, t_philo *philo);
 
 //main.c
-void	*routine(void *arg);
+void	*philo_routine(void *arg);
 
 //debug.c
 void	print_philos(t_philo *philo, int total);

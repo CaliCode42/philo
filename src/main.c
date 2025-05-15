@@ -6,13 +6,13 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:49:44 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/15 20:08:03 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/15 20:14:55 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*routine(void *arg)
+void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
 

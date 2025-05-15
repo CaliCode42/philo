@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 19:21:14 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/15 20:06:25 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/15 20:14:53 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	start_threads(t_data *data, t_philo *philo)
 	tmp = philo;
 	while (i < data->nb_philo)
 	{
-		pthread_create(&tmp->thread_id, NULL, &routine, tmp);
+		pthread_create(&tmp->thread_id, NULL, &philo_routine, tmp);
 		tmp = tmp->next;
 		i++;
 	}
