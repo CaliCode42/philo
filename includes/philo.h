@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:50:10 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/15 20:15:02 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/19 13:15:50 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <pthread.h>
+# include <sys/time.h>
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/libft.h"
 
@@ -35,7 +36,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				meals_eaten;
-	int				last_meal;
+	long			last_meal;
 	pthread_t		thread_id;
 	t_data			*data;
 	pthread_mutex_t	*left_fork;
@@ -62,5 +63,8 @@ void	*philo_routine(void *arg);
 
 //debug.c
 void	print_philos(t_philo *philo, int total);
+
+//check
+void	check_philos(t_philo *philo, t_data *data);
 
 #endif

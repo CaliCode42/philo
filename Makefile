@@ -13,6 +13,7 @@ SRC := \
 	parse_args.c \
 	create_philos.c \
 	threads.c \
+	check_philos.c \
 
 DBG := \
 	debug.c \

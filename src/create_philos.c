@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:21:14 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/15 19:54:35 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/19 13:07:32 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void	init_philosophers(int total, t_philo **philo, t_data *data)
 
 	i = 0;
 	new_philo = NULL;
-	ft_printf("nb of philo : %d\n", total);
+	//ft_printf("nb of philo : %d\n", total);
 	while (i < total)
 	{
 		new_philo = create_new_philo(philo, i + 1, data);
 		if (!new_philo)
 			return ;
-		ft_printf("current philo : %d\n", new_philo->id);
+		//ft_printf("current philo : %d\n", new_philo->id);
 		new_philo->left_fork = &data->forks[i];
 		new_philo->right_fork = &data->forks[(i + 1) % total];
 		i++;
