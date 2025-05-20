@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:19:27 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/15 18:22:26 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/20 17:24:50 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_mutexes(t_data *data)
 		i++;
 	}
 	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->mutex_rip, NULL);
 }
 
 int	init_data(t_data *data, char **args)
@@ -40,7 +41,7 @@ int	init_data(t_data *data, char **args)
 	if (data->nb_philo < 1 || data->death <= 0 || data->eat <= 0
 		|| data->sleep <= 0 || data->meals < 0)
 		return (0);
-	data->start_time = 0;
+	data->start_time = get_time_ms();
 	data->rip = 0;
 	init_mutexes(data);
 	return (1);

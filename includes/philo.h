@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:50:10 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/19 13:15:50 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/20 17:29:25 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_data
 	int				meals;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
+	pthread_mutex_t	mutex_rip;
 	int				start_time;
 	int				rip;
 }		t_data;
@@ -59,12 +60,14 @@ void	start_threads(t_data *data, t_philo *philo);
 void	join_threads(t_data *data, t_philo *philo);
 
 //main.c
+long	get_time_ms(void);
 void	*philo_routine(void *arg);
 
 //debug.c
 void	print_philos(t_philo *philo, int total);
 
 //check
-void	check_philos(t_philo *philo, t_data *data);
+int		should_stop(t_philo *philo);
+int		check_philos(t_philo *philo, t_data *data);
 
 #endif

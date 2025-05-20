@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:49:44 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/19 13:10:35 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/20 17:38:07 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*monitor_routine(void *arg)
 
 	start = (t_philo *)arg;
 	current = start;
-	while (1)
+	while (!should_stop(current))
 	{
 		i = 0;
 		while (i < start->data->nb_philo)
@@ -38,8 +38,13 @@ void	*monitor_routine(void *arg)
 			if ((now - current->last_meal) > current->data->death)
 			{
 				pthread_mutex_lock(&current->data->print);
-				ft_printf("%ld %d died\n", now, current->id);
-				exit(0);
+				ft_printf("%ld %d died\n",
+					now - current->data->start_time, current->id);
+				pthread_mutex_unlock(&current->data->print);
+				pthread_mutex_lock(&current->data->mutex_rip);
+				current->data->rip = 1;
+				pthread_mutex_unlock(&current->data->mutex_rip);
+				return (NULL);
 			}
 			current = current->next;
 			i++;
@@ -54,7 +59,7 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (philo->meals_eaten < philo->data->meals)
+	while (!should_stop(philo))
 	{
 		pthread_mutex_lock(philo->left_fork);
 		pthread_mutex_lock(philo->right_fork);
@@ -72,6 +77,8 @@ void	*philo_routine(void *arg)
 		ft_printf("Philo %d is sleeping\n", philo->id);
 		pthread_mutex_unlock(&philo->data->print);
 		usleep(philo->data->sleep * 1000);
+		if (philo->data->meals && philo->meals_eaten == philo->data->meals)
+			break ;
 	}
 	return (NULL);
 }
@@ -88,11 +95,15 @@ int	main(int ac, char **av)
 		return (ft_printf("Error initializing data.\n"), 1);
 	philo = NULL;
 	init_philosophers(data.nb_philo, &philo, &data);
-	print_philos(philo, data.nb_philo);
+	//print_philos(philo, data.nb_philo);
 	start_threads(&data, philo);
-	join_threads(&data, philo);
 	pthread_create(&monitor, NULL, &monitor_routine, philo);
+	join_threads(&data, philo);
 	pthread_join(monitor, NULL);
-	check_philos(philo, &data);
+	if (check_philos(philo, &data) == 0)
+	{
+		ft_printf("Some philosophers did not eat enough.\n");
+		return (1);
+	}
 	return (0);
 }
