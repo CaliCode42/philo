@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:24:18 by tcali             #+#    #+#             */
-/*   Updated: 2025/04/10 20:58:14 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/21 16:41:14 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_printf
 	char		*ptr;
 	t_format	format;
 	int			fd;
+	char		*dest;
 }				t_printf;
 
 typedef struct s_sprintf
@@ -70,6 +71,7 @@ void	ft_check_prefix(t_printf *list);
 void	ft_check_width(t_printf *list);
 void	ft_putstr(t_printf *list, char *str);
 void	ft_check_precision(t_printf *list, char *str);
+void	ft_check_zeropad(t_printf *list);
 void	ft_pickstr(t_printf *list);
 void	ft_fill_withzero(char *str, size_t n);
 void	ft_update_itoa(t_printf *list, char const *s1, char const *s2);
@@ -84,17 +86,15 @@ void	ft_putchar(char c);
 void	ft_putformat(t_printf *list, char c);
 
 //ft_sprintf
-int		ft_sprintf(char *str, const char *format, ...);
-char	*ft_process_format(t_sprintf *s);
-char	*ft_handle_format(t_sprintf *s, int *i);
-char	*ft_handle_char(t_sprintf *s);
-char	*ft_handle_string(t_sprintf *s);
-char	*ft_handle_int(t_sprintf *s);
-char	*ft_handle_unsigned(t_sprintf *s);
-char	*ft_handle_hex(t_sprintf *s);
-char	*ft_handle_pointer(t_sprintf *s);
-char	*ft_handle_percent(void);
-char	*ft_append_char(t_sprintf *s, char c);
+void	str_render_format(t_printf *list);
+char	*str_putchar(char c);
+char	*str_putformat(t_printf *list, char c);
+void	str_putstr(t_printf *list, char *str);
+void	str_check_prefix(t_printf *list);
+void	nb_to_str(t_printf *list, char speci);
+void	char_to_str(t_printf *list, int c, char pad);
+void	update_list_dest(t_printf *list, char c);
+int		ft_sprintf(char **str, const char *format, ...);
 
 //ft_snprintf
 int		ft_snprintf(char *str, size_t size, const char *format, ...);

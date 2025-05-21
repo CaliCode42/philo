@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:02:06 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/15 15:54:53 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/21 15:46:28 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 char	*ft_strsep(char **str_ptr, const char *sep);
 size_t	ft_strcspn(const char *str, const char *sep);
-int		ft_sprintf(char *str, const char *format, ...);
 /* ************************************************************************** */
 //Part 2 - Additional Functions
 char	*ft_itoa(int n);
@@ -60,6 +59,7 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_free(char *s1, char *s2);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);

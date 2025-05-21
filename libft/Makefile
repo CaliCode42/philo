@@ -35,6 +35,7 @@ SRC_FILES := \
 	ft_strdup.c \
 	ft_substr.c \
 	ft_strjoin.c \
+	ft_strjoin_free.c \
 	ft_strtrim.c \
 	ft_split.c \
 	ft_str_threejoin.c \
@@ -79,6 +80,8 @@ PRINTF_FILES := \
 	print_type.c \
 	ft_free.c \
 	ft_pickstr.c \
+	str_type.c \
+	str_putstr.c \
 
 GNL_FILES := \
 	get_next_line_utils.c \

@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:57:35 by tcali             #+#    #+#             */
-/*   Updated: 2025/03/25 23:57:26 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/21 15:28:09 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_printchar(t_printf *list, int c, char pad)
 		ft_put_n_char(list, 1, (char)c);
 }
 
-static void	ft_check_zeropad(t_printf *list)
+void	ft_check_zeropad(t_printf *list)
 {
 	int	str_len;
 
