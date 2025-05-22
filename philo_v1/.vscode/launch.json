@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/tcali/Common_Core/philosopher/git_philo/src",
-      "program": "/home/tcali/Common_Core/philosopher/git_philo/src/build/Debug/outDebug",
+      "cwd": "/home/tcali/Common_Core/philosopher/philo/src",
+      "program": "/home/tcali/Common_Core/philosopher/philo/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
