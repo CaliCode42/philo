@@ -6,11 +6,25 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:32:20 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/26 17:42:41 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/26 19:46:34 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	*one_philo(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	wait_all_threads(philo->data);
+	set_long(&philo->m_philo, &philo->t_last_meal, gettime(MILLISECONDS));
+	increase_long(&philo->m_philo, &philo->data->threads_running_nb);
+	write_status(TAKE_CHOPSTICK_ONE, philo, DEBUG_MODE);
+	while (!end(philo->data))
+		usleep(200);
+	return (NULL);
+}
 
 static void	thinking(t_philo *philo)
 {
@@ -39,6 +53,8 @@ void	*philo_routine(void *data)
 
 	philo = (t_philo *)data;
 	wait_all_threads(philo->data);
+	set_long(&philo->m_philo, &philo->t_last_meal, gettime(MILLISECONDS));
+	increase_long(&philo->data->m_data, &philo->data->threads_running_nb);
 	while (!end(philo->data))
 	{
 		if (philo->full)
@@ -58,17 +74,18 @@ void	start_threads(t_data *data)
 	i = 0;
 	if (data->nb_meals == 0)
 		return ;
-	//else if (data->nb_philo == 1)
-	//	;
+	else if (data->nb_philo == 1)
+		safe_thread_handle(&data->philos[0].thread_id, one_philo,
+			&data->philos[0], CREATE);
 	else
 	{
-		while (i < data->nb_philo)
+		while (i++ < data->nb_philo)
 		{
 			safe_thread_handle(&data->philos[i].thread_id, philo_routine,
 				&data->philos[i], CREATE);
-			i++;
 		}
 	}
+	safe_thread_handle(&data->monitor, monitor_routine, data, CREATE);
 	data->start_time = gettime(MILLISECONDS);
 	set_bool(&data->m_data, &data->threads_ready, true);
 	i = 0;

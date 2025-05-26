@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:19:27 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/26 17:47:14 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/26 19:54:02 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ static void	init_philosophers(t_data *data)
 	}
 }
 
-static void	init_mutexes(t_data *data)
-{
-	safe_mutex_handle(&data->m_eat, INIT);
-	safe_mutex_handle(&data->m_stop, INIT);
-	safe_mutex_handle(&data->m_print, INIT);
-}
+//static void	init_mutexes(t_data *data)
+//{
+//	safe_mutex_handle(&data->m_eat, INIT);
+//	safe_mutex_handle(&data->m_stop, INIT);
+//	safe_mutex_handle(&data->m_print, INIT);
+//}
 
 void	init_data(t_data *data, char **av)
 {
@@ -61,6 +61,7 @@ void	init_data(t_data *data, char **av)
 	parse_input(data, av);
 	data->quit = false;
 	data->threads_ready = false;
+	data->threads_running_nb = 0;
 	data->philos = safe_malloc(sizeof(t_philo) * data->nb_philo);
 	safe_mutex_handle(&data->m_data, INIT);
 	data->chopsticks = safe_malloc(sizeof(t_chopstick) * data->nb_philo);
@@ -71,5 +72,5 @@ void	init_data(t_data *data, char **av)
 		i++;
 	}
 	init_philosophers(data);
-	init_mutexes(data);
+	//init_mutexes(data);
 }

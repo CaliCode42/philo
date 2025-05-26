@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:35:26 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/26 17:48:53 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/26 19:35:06 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_data
 	long			start_time;
 	bool			quit;
 	bool			threads_ready;
+	long			threads_running_nb;
+	pthread_t		monitor;
 	t_chopstick		*chopsticks;
 	struct s_philo	*philos;
 }		t_data;
@@ -121,6 +123,15 @@ long	get_long(t_mtx *mutex, long *value);
 
 //sync_utils.c
 void	wait_all_threads(t_data *data);
+void	increase_long(t_mtx *mutex, long *value);
+bool	all_threads_running(t_mtx *mutex, long *threads,
+			long philo_nb);
+
+//routine.c
+void	start_threads(t_data *data);
+
+//monitor.c
+void	*monitor_routine(void *arg);
 
 //write.c
 void	write_status(t_status status, t_philo *philo, bool debug);

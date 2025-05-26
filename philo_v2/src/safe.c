@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:04:05 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/26 17:45:17 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/26 19:56:04 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	handle_thread_error(int status, t_opcode opcode)
 	else if (status == EINVAL && (opcode == JOIN || opcode == DETACH))
 		error_exit ("Thread is not joinable.");
 	else if (status == ESRCH)
-		error_exit("thread id not found.");
+		error_exit("Thread id not found.");
 }
 
 void	safe_thread_handle(pthread_t *thread, void *(*f)(void *),
