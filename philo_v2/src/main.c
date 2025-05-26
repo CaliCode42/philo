@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:01:16 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/23 16:49:19 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/26 17:47:31 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,33 +25,25 @@ void	free_destroy(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		pthread_mutex_destroy(&data->philo[i].left_chopstick);
-		pthread_mutex_destroy(data->philo[i].right_chopstick);
-		pthread_mutex_destroy(&data->philo[i].thread_id);
-		pthread_mutex_destroy(&data->philo[i].mutex_meals);
-		pthread_mutex_destroy(&data->philo[i].mutex_last_meal);
+		safe_mutex_handle(&data->philos[i].chopstick_one->chopstick, DESTROY);
+		safe_mutex_handle(&data->philos[i].chopstick_two->chopstick, DESTROY);
+		safe_mutex_handle(&data->philos[i].mutex_meals, DESTROY);
+		safe_mutex_handle(&data->philos[i].mutex_last_meal, DESTROY);
+		i++;
 	}
-	free(data->philo);
-	pthread_mutex_destroy(&data->mutex_rip);
-	pthread_mutex_destroy(&data->print);
-	pthread_mutex_destroy(&data->mutex_eat);
-	pthread_mutex_destroy(&data->mutex_stop);
+	free(data->philos);
+	safe_mutex_handle(&data->m_print, DESTROY);
+	safe_mutex_handle(&data->m_eat, DESTROY);
+	safe_mutex_handle(&data->m_stop, DESTROY);
 }
 
 int	main(int ac, char **av)
 {
 	t_data		data;
-	pthread_t	monitor;
 
 	if (ac < 5 || ac > 6)
-		return (ft_printf("invalid nb of args.\n"), 1);
-	if (init_data(&data, ac, av) == 0)
-		return (ft_printf("Error initializing data.\n"), 1);
-	init_philosophers(data.nb_philo, &data);
-	start_threads(&data);
-	pthread_create(&monitor, NULL, &monitor_routine);
-	join_threads(&data, philo);
-	pthread_join(monitor, NULL);
+		error_exit("invalid nb of args.");
+	init_data(&data, av);
 	free_destroy(&data);
 	return (0);
 }

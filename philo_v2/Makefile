@@ -3,34 +3,30 @@ NAME = philo
 # Directories
 SRC_DIR = src
 DBG_DIR  = debug
-LIBFT_DIR = libft
 OBJ_DIR = obj
 INCLUDE_DIR = includes
 
 # Sources
 SRC := \
-	check_philos.c \
-	create_philos.c \
+	getters_setters.c \
+	init.c \
 	main.c \
-	parse_args.c \
-	thread_forks.c \
-	threads.c \
+	parse.c \
+	routine.c \
+	safe.c \
+	sync_utils.c \
+	utils.c \
+	write.c \
 
-DBG := \
-	debug.c \
 #Path to sources
-VPATH = $(SRC_DIR) $(DBG_DIR)
+VPATH = $(SRC_DIR)
 
 # Objects
 OBJ_FILES := $(addprefix $(OBJ_DIR)/$(SRC_DIR)/, $(SRC:.c=.o)) \
-	$(addprefix $(OBJ_DIR)/$(DBG_DIR)/, $(DBG:.c=.o))
 
 # Compilation
 CC := cc
-CFLAGS := -Wall -Wextra -Werror -I$(INCLUDE_DIR) -I$(LIBFT_DIR)
-
-#Libraries
-LIBFT = $(LIBFT_DIR)/libft.a
+CFLAGS := -Wall -Wextra -Werror -I$(INCLUDE_DIR)
 
 #Objects directory
 OBJDIRS := $(sort $(dir $(OBJ_FILES)))
@@ -38,11 +34,8 @@ OBJDIRS := $(sort $(dir $(OBJ_FILES)))
 # Rules
 all: $(NAME)
 
-$(LIBFT):
-	make -C $(LIBFT_DIR)
-
-$(NAME): $(OBJ_FILES) $(LIBFT)
-	$(CC) $(OBJ_FILES) -o $(NAME) -L$(LIBFT_DIR) -lft
+$(NAME): $(OBJ_FILES)
+	$(CC) $(OBJ_FILES) -o $(NAME)
 
 $(OBJ_DIR)/%.o: %.c | $(OBJDIRS)
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -59,7 +52,7 @@ fclean: clean
 
 re: fclean all
 
-debug : CFLAGS += -g
-debug : $(NAME)
+debug : CFLAGS += -g -DDEBUG_MODE=1
+debug : re
 
 .PHONY: all clean fclean re debug
