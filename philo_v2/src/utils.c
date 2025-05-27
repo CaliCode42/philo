@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:45:59 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/26 16:52:04 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/27 14:24:58 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ long	gettime(t_time_code time_code)
 	if (gettimeofday(&tv, NULL))
 		error_exit("Gettimeofday failed.");
 	if (time_code == SECONDS)
-		return (tv.tv_sec + (tv.tv_usec / 1e6));
+		return (tv.tv_sec + (tv.tv_usec / 1000000));
 	else if (time_code == MILLISECONDS)
-		return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
+		return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 	else if (time_code == MICROSECONDS)
-		return ((tv.tv_sec * 1e6) + tv.tv_usec);
+		return ((tv.tv_sec * 1000000) + tv.tv_usec);
 	else
 		error_exit("Wrong input to gettime.");
 	return (-1);
@@ -36,7 +36,7 @@ void	precise_usleep(long usec, t_data *data)
 	long	remaining;
 
 	start = gettime(MICROSECONDS);
-	while(gettime(MICROSECONDS) - start < usec)
+	while (gettime(MICROSECONDS) - start < usec)
 	{
 		if (end(data))
 			break ;

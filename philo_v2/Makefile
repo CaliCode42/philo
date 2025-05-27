@@ -11,7 +11,7 @@ SRC := \
 	getters_setters.c \
 	init.c \
 	main.c \
-	monitor.c \
+	monitor_routine.c \
 	parse.c \
 	routine.c \
 	safe.c \

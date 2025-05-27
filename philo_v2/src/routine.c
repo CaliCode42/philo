@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:32:20 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/26 19:46:34 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/27 15:49:44 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,14 @@ static void	eat(t_philo *philo)
 	write_status(TAKE_CHOPSTICK_TWO, philo, DEBUG_MODE);
 	set_long(&philo->m_philo, &philo->t_last_meal, gettime(MILLISECONDS));
 	philo->meals++;
+	write_status(EATING, philo, DEBUG_MODE);
 	precise_usleep(philo->data->t_eat, philo->data);
 	if (philo->data->nb_meals > 0
 		&& philo->data->nb_meals == philo->meals)
+	{
 		set_bool(&philo->m_philo, &philo->full, true);
+		write_status(FULL, philo, DEBUG_MODE);
+	}
 	safe_mutex_handle(&philo->chopstick_one->chopstick, UNLOCK);
 	safe_mutex_handle(&philo->chopstick_two->chopstick, UNLOCK);
 }
@@ -79,10 +83,11 @@ void	start_threads(t_data *data)
 			&data->philos[0], CREATE);
 	else
 	{
-		while (i++ < data->nb_philo)
+		while (i < data->nb_philo)
 		{
 			safe_thread_handle(&data->philos[i].thread_id, philo_routine,
 				&data->philos[i], CREATE);
+			i++;
 		}
 	}
 	safe_thread_handle(&data->monitor, monitor_routine, data, CREATE);
@@ -94,4 +99,6 @@ void	start_threads(t_data *data)
 		safe_thread_handle(&data->philos[i].thread_id, NULL, NULL, JOIN);
 		i++;
 	}
+	set_bool(&data->m_data, &data->quit, true);
+	safe_thread_handle(&data->monitor, NULL, NULL, JOIN);
 }

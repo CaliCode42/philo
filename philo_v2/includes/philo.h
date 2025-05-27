@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:35:26 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/26 19:35:06 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/27 15:14:20 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef enum e_status
 	TAKE_CHOPSTICK_ONE,
 	TAKE_CHOPSTICK_TWO,
 	DIED,
+	FULL,
 }	t_status;
 
 typedef struct s_chopstick
@@ -130,7 +131,7 @@ bool	all_threads_running(t_mtx *mutex, long *threads,
 //routine.c
 void	start_threads(t_data *data);
 
-//monitor.c
+//monitor_routine.c
 void	*monitor_routine(void *arg);
 
 //write.c
