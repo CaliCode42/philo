@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:32:20 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/28 11:42:32 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/28 11:58:11 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	thinking(t_philo *philo, bool in_simulation)
 static void	eat(t_philo *philo)
 {
 	safe_mutex_handle(&philo->chopstick_one->chopstick, LOCK);
-	//write_status(TAKE_CHOPSTICK_ONE, philo, DEBUG_MODE);
+	write_status(TAKE_CHOPSTICK_ONE, philo, DEBUG_MODE);
 	safe_mutex_handle(&philo->chopstick_two->chopstick, LOCK);
-	//write_status(TAKE_CHOPSTICK_TWO, philo, DEBUG_MODE);
+	write_status(TAKE_CHOPSTICK_TWO, philo, DEBUG_MODE);
 	set_long(&philo->m_philo, &philo->t_last_meal, gettime(MILLISECONDS));
 	philo->meals++;
 	write_status(EATING, philo, DEBUG_MODE);

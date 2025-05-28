@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:52:31 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/28 11:43:58 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/28 11:59:09 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,13 @@ void	write_status(t_status status, t_philo *philo, bool debug)
 	{
 		if ((status == TAKE_CHOPSTICK_ONE || status == TAKE_CHOPSTICK_TWO)
 			&& !end(philo->data))
-			//printf("%ld : %d has taken a chopstick\n", elapsed, philo->id);
-			return ;
+			printf("%ld %d has taken a fork\n", elapsed, philo->id);
 		else if (status == EATING && !end(philo->data))
-			printf("%ld %d eating\n", elapsed, philo->id);
+			printf("%ld %d is eating\n", elapsed, philo->id);
 		else if (status == SLEEPING && !end(philo->data))
-			printf("%ld %d sleeping\n", elapsed, philo->id);
+			printf("%ld %d is sleeping\n", elapsed, philo->id);
 		else if (status == THINKING && !end(philo->data))
-			printf("%ld %d thinking\n", elapsed, philo->id);
+			printf("%ld %d is thinking\n", elapsed, philo->id);
 		else if (status == DIED)
 			printf("%ld %d died\n", elapsed, philo->id);
 	}
