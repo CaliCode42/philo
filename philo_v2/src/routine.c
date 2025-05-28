@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:32:20 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/28 11:58:11 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/28 14:21:38 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	*philo_routine(void *data)
 
 	philo = (t_philo *)data;
 	wait_all_threads(philo->data);
+	if (philo->id % 2 == 0)
+		usleep(200);
 	set_long(&philo->m_philo, &philo->t_last_meal, gettime(MILLISECONDS));
 	increase_long(&philo->data->m_data, &philo->data->threads_running_nb);
 	while (!end(philo->data))
