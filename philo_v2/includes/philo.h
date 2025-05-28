@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:35:26 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/27 15:14:20 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/28 11:26:24 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ bool	all_threads_running(t_mtx *mutex, long *threads,
 			long philo_nb);
 
 //routine.c
+void	thinking(t_philo *philo, bool in_simulation);
 void	start_threads(t_data *data);
 
 //monitor_routine.c

@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:32:20 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/27 15:49:44 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/28 11:42:32 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,30 @@ void	*one_philo(void *arg)
 	return (NULL);
 }
 
-static void	thinking(t_philo *philo)
+void	thinking(t_philo *philo, bool in_simulation)
 {
-	write_status(THINKING, philo, DEBUG_MODE);
+	long	t_eat;
+	long	t_sleep;
+	long	t_think;
+
+	if (in_simulation)
+		write_status(THINKING, philo, DEBUG_MODE);
+	if (philo->data->nb_philo % 2 == 0)
+		return ;
+	t_eat = philo->data->t_eat;
+	t_sleep = philo->data->t_sleep;
+	t_think = t_eat * 2 - t_sleep;
+	if (t_think < 0)
+		t_think = 0;
+	precise_usleep(t_think * 0.42, philo->data);
 }
 
 static void	eat(t_philo *philo)
 {
 	safe_mutex_handle(&philo->chopstick_one->chopstick, LOCK);
-	write_status(TAKE_CHOPSTICK_ONE, philo, DEBUG_MODE);
+	//write_status(TAKE_CHOPSTICK_ONE, philo, DEBUG_MODE);
 	safe_mutex_handle(&philo->chopstick_two->chopstick, LOCK);
-	write_status(TAKE_CHOPSTICK_TWO, philo, DEBUG_MODE);
+	//write_status(TAKE_CHOPSTICK_TWO, philo, DEBUG_MODE);
 	set_long(&philo->m_philo, &philo->t_last_meal, gettime(MILLISECONDS));
 	philo->meals++;
 	write_status(EATING, philo, DEBUG_MODE);
@@ -45,7 +58,7 @@ static void	eat(t_philo *philo)
 		&& philo->data->nb_meals == philo->meals)
 	{
 		set_bool(&philo->m_philo, &philo->full, true);
-		write_status(FULL, philo, DEBUG_MODE);
+		//write_status(FULL, philo, DEBUG_MODE);
 	}
 	safe_mutex_handle(&philo->chopstick_one->chopstick, UNLOCK);
 	safe_mutex_handle(&philo->chopstick_two->chopstick, UNLOCK);
@@ -66,7 +79,7 @@ void	*philo_routine(void *data)
 		eat(philo);
 		write_status(SLEEPING, philo, DEBUG_MODE);
 		precise_usleep(philo->data->t_sleep, philo->data);
-		thinking(philo);
+		thinking(philo, true);
 	}
 	return (NULL);
 }
@@ -90,8 +103,8 @@ void	start_threads(t_data *data)
 			i++;
 		}
 	}
-	safe_thread_handle(&data->monitor, monitor_routine, data, CREATE);
 	data->start_time = gettime(MILLISECONDS);
+	safe_thread_handle(&data->monitor, monitor_routine, data, CREATE);
 	set_bool(&data->m_data, &data->threads_ready, true);
 	i = 0;
 	while (i < data->nb_philo)

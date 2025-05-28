@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:19:49 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/26 17:56:07 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/28 11:47:28 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	parse_input(t_data *data, char **av)
 		data->nb_meals = ft_atol(av[5]);
 	else
 		data->nb_meals = -1;
-	printf("nb_philo: %ld, t_die: %ld, t_eat: %ld, t_sleep: %ld, meals: %ld\n",
-		data->nb_philo, data->t_death, data->t_eat,
-		data->t_sleep, data->nb_meals);
+	// printf("nb_philo: %ld, t_die: %ld, t_eat: %ld, t_sleep: %ld, meals: %ld\n",
+	// 	data->nb_philo, data->t_death, data->t_eat,
+	// 	data->t_sleep, data->nb_meals);
 }

@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:52:31 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/27 15:33:06 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/28 11:43:58 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	write_status_debug(t_status status, t_philo *philo, long elapsed)
 		printf("\n%ld : %d is thinking\n", elapsed, philo->id);
 	else if (status == DIED)
 	{
-		printf("\n%ld : %d died\n", elapsed, philo->id);
+		printf("\n%ld : philo %d died\n", elapsed, philo->id);
 		printf("checking if %d is dead (time since last_meal = %ld)\n",
 			philo->id, elapsed - philo->t_last_meal);
 		if (philo->t_last_meal - elapsed >= philo->data->t_death)
@@ -39,20 +39,22 @@ static void	write_status_debug(t_status status, t_philo *philo, long elapsed)
 	}
 }
 
-static void	write_philo_full(t_philo *philo)
-{
-	safe_mutex_handle(&philo->data->m_print, LOCK);
-	printf("philo %d is full\n", philo->id);
-	safe_mutex_handle(&philo->data->m_print, UNLOCK);
-}
+// static void	write_philo_full(t_philo *philo)
+// {
+// 	safe_mutex_handle(&philo->data->m_print, LOCK);
+// 	printf("philo %d is full\n", philo->id);
+// 	safe_mutex_handle(&philo->data->m_print, UNLOCK);
+// }
 
 void	write_status(t_status status, t_philo *philo, bool debug)
 {
 	long	elapsed;
 
+	if (philo->full)
+		return ;
 	elapsed = gettime(MILLISECONDS);
-	if (philo->full || status == FULL)
-		return (write_philo_full(philo));
+	// if (philo->full || status == FULL)
+	// 	return (write_philo_full(philo));
 	safe_mutex_handle(&philo->data->m_print, LOCK);
 	if (debug)
 		write_status_debug(status, philo, elapsed);
@@ -60,15 +62,16 @@ void	write_status(t_status status, t_philo *philo, bool debug)
 	{
 		if ((status == TAKE_CHOPSTICK_ONE || status == TAKE_CHOPSTICK_TWO)
 			&& !end(philo->data))
-			printf("%ld : %d has taken a chopstick\n", elapsed, philo->id);
+			//printf("%ld : %d has taken a chopstick\n", elapsed, philo->id);
+			return ;
 		else if (status == EATING && !end(philo->data))
-			printf("%ld : %d is eating\n", elapsed, philo->id);
+			printf("%ld %d eating\n", elapsed, philo->id);
 		else if (status == SLEEPING && !end(philo->data))
-			printf("%ld : %d is sleeping\n", elapsed, philo->id);
+			printf("%ld %d sleeping\n", elapsed, philo->id);
 		else if (status == THINKING && !end(philo->data))
-			printf("%ld : %d is thinking\n", elapsed, philo->id);
+			printf("%ld %d thinking\n", elapsed, philo->id);
 		else if (status == DIED)
-			printf("%ld : %d died\n", elapsed, philo->id);
+			printf("%ld %d died\n", elapsed, philo->id);
 	}
 	safe_mutex_handle(&philo->data->m_print, UNLOCK);
 }

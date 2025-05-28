@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 12:35:10 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/27 12:35:59 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/28 10:56:20 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	philo_died(t_philo *philo)
 		return (false);
 	elapsed = gettime(MILLISECONDS) - get_long(&philo->m_philo,
 			&philo->t_last_meal);
-	t_death = philo->data->t_death / 1e3;
+	t_death = philo->data->t_death / 1000;
 	if (elapsed > t_death)
 		return (true);
 	return (false);

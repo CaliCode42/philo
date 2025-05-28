@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 10:45:59 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/27 14:24:58 by tcali            ###   ########.fr       */
+/*   Updated: 2025/05/28 10:47:44 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	precise_usleep(long usec, t_data *data)
 		elapsed = gettime(MICROSECONDS) - start;
 		remaining = usec - elapsed;
 		if (remaining > 1e3)
-			usleep(usec / 2);
+			usleep(remaining / 2);
 		else
 		{
 			while (gettime(MICROSECONDS) - start < usec)
