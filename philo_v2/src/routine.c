@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:32:20 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/28 14:21:38 by tcali            ###   ########.fr       */
+/*   Updated: 2025/06/04 16:40:51 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	eat(t_philo *philo)
 		&& philo->data->nb_meals == philo->meals)
 	{
 		set_bool(&philo->m_philo, &philo->full, true);
-		//write_status(FULL, philo, DEBUG_MODE);
 	}
 	safe_mutex_handle(&philo->chopstick_one->chopstick, UNLOCK);
 	safe_mutex_handle(&philo->chopstick_two->chopstick, UNLOCK);
@@ -90,7 +89,7 @@ void	start_threads(t_data *data)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (data->nb_meals == 0)
 		return ;
 	else if (data->nb_philo == 1)
@@ -98,22 +97,16 @@ void	start_threads(t_data *data)
 			&data->philos[0], CREATE);
 	else
 	{
-		while (i < data->nb_philo)
-		{
+		while (++i < data->nb_philo)
 			safe_thread_handle(&data->philos[i].thread_id, philo_routine,
 				&data->philos[i], CREATE);
-			i++;
-		}
 	}
 	data->start_time = gettime(MILLISECONDS);
 	safe_thread_handle(&data->monitor, monitor_routine, data, CREATE);
 	set_bool(&data->m_data, &data->threads_ready, true);
-	i = 0;
-	while (i < data->nb_philo)
-	{
+	i = -1;
+	while (++i < data->nb_philo)
 		safe_thread_handle(&data->philos[i].thread_id, NULL, NULL, JOIN);
-		i++;
-	}
 	set_bool(&data->m_data, &data->quit, true);
 	safe_thread_handle(&data->monitor, NULL, NULL, JOIN);
 }

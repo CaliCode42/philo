@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:52:31 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/28 14:15:07 by tcali            ###   ########.fr       */
+/*   Updated: 2025/06/04 16:41:12 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	write_status(t_status status, t_philo *philo, bool debug)
 	if (philo->full)
 		return ;
 	elapsed = gettime(MILLISECONDS) - philo->data->start_time;
-	// if (philo->full || status == FULL)
-	// 	return (write_philo_full(philo));
 	safe_mutex_handle(&philo->data->m_print, LOCK);
 	if (debug)
 		write_status_debug(status, philo, elapsed);

@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:01:16 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/27 12:23:50 by tcali            ###   ########.fr       */
+/*   Updated: 2025/06/04 16:42:29 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	free_destroy(t_data *data)
 	{
 		safe_mutex_handle(&data->philos[i].chopstick_one->chopstick, DESTROY);
 		safe_mutex_handle(&data->philos[i].chopstick_two->chopstick, DESTROY);
-		//safe_mutex_handle(&data->philos[i].mutex_meals, DESTROY);
-		//safe_mutex_handle(&data->philos[i].mutex_last_meal, DESTROY);
 		i++;
 	}
 	free(data->chopsticks);
@@ -70,7 +68,6 @@ int	main(int ac, char **av)
 	if (ac < 5 || ac > 6)
 		error_exit("invalid nb of args.");
 	init_data(&data, av);
-	//check_mtx(&data);
 	start_threads(&data);
 	free_destroy(&data);
 	return (0);

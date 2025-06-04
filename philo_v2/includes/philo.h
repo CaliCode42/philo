@@ -6,7 +6,7 @@
 /*   By: tcali <tcali@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:35:26 by tcali             #+#    #+#             */
-/*   Updated: 2025/05/28 11:26:24 by tcali            ###   ########.fr       */
+/*   Updated: 2025/06/04 16:42:25 by tcali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ typedef struct s_philo
 	long			t_last_meal;
 	bool			full;
 	pthread_t		thread_id;
-	t_mtx			mutex_meals;
-	t_mtx			mutex_last_meal;
 	t_mtx			m_philo;
 	t_data			*data;
 	t_chopstick		*chopstick_one;
